@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .center{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .popup {
+          width: 350px;
+          height: 200px;
+          padding: 30px 20px; /* fixed syntax error */
+          background: #f5f5f5;
+          border-radius: 10px;
+          box-sizing: border-box;
+          z-index: 2;
+          text-align: center;
+          opacity: 0;
+          top: 200%;
+          transform: translate(-50%, -50%) scale(0.5);
+          transition: opacity 3000ms ease-in-out, top 1000ms ease-in-out, transform 1000ms ease-in-out; /* fixed syntax error */
+        }
+        .popup.active{
+            opacity: 1;
+            top: 50%;
+            transform: translate(11%, 7%) scale(1);
+            transition: transform 300ms cubic-bezier(0.18, 0.89, 0.43, 1.19);
+        }
+        .popup .description{
+            color: #222;
+        }
+        .popup .dismiss-btn{
+            margin-top: 15px;
+        }
+        .popup .dismiss-btn button{
+            background: #111;
+            color: #f5f5f5;
+            padding: 10px, 20px;
+            border: 2px solid #111;
+            outline: none;
+            border-radius: 10px;
+            transition: all 300ms ease-in-out;
+            cursor: pointer;
+        }
+        .popup .dismiss-btn button:hover{
+            color: #111;
+            background-image: #f5f5f5;
+        }
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="popup">
+        <p class="description"> i want to display recipe over here </p>
+        <div class="dismiss-btn">
+            <button id="dismiss-popup-btn">Dismiss</button>
+        </div>
+    </div>
+    
+    <div class="center">
+        <button id="open-popup-btn">open popup</button>
+    </div>
+    <script defer>
+     document.getElementById("open-popup-btn").addEventListener("click", function(){
+        document.getElementsByClassName("popup")[0].classList.add("active");
+        document.getElementById("open-popup-btn").classList.add("hide");
+     });
+     document.getElementById("dismiss-popup-btn").addEventListener("click", function(){
+        document.getElementsByClassName("popup")[0].classList.remove("active");
+        document.getElementById("open-popup-btn").classList.remove("hide");
+     });
+    </script>
+</body>
+</html>
