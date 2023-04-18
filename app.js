@@ -1,32 +1,31 @@
 
-//   let data1 = "";
-//     completedata.results.map(value => {
-//       data1 += `<div class="card">
-//         <h1 class="title">${value.title}</h1>
-//         <img src="${value.image}" alt="img">
-//       </div>`;
-//     });
-//     document.getElementById("cards").innerHTML = data1;
-let completedata = null;
-const endpoint = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=5098cda1bbe94833b4dcfa9e3e1287b5';
+// main cards with pic and title
+// let completedata = null;
+// const endpoint = 'https://api.spoonacular.com/recipes/random?apiKey=e4df68706b174577ae41be782fd11179&number=10';
+ 
+// // Get recipe data from Spoonacular API
+// fetch(endpoint)
+//   .then(response => response.json())
+//   .then(data => {
+//    const mydata = localStorage.setItem("data_recipe", JSON.stringify(data.recipes))})
+let myData=localStorage.getItem("data_recipe")
 
-// Get recipe data from Spoonacular API
-fetch(endpoint)
-  .then(response => response.json())
-  .then(data => {
-    completedata = data;
+
+    completedata =JSON.parse(myData);
     console.log(completedata);
 
     // Generate recipe cards
-    let data1 = "";
-    completedata.results.map(value => {
-      data1 += `<div class="card" onclick="showRecipeDetails(${value.id})">
+    
+    let data1=completedata.map((value,index) => {
+      return  `
+      <div class="card" onclick="display(${index})">
         <h1 class="title">${value.title}</h1>
         <img src="${value.image}" alt="img">
+        <p class="ingredients">${value.extendedIngredients}</p>
       </div>`;
     });
     document.getElementById("cards").innerHTML = data1;
-  });
+  
   // search Recipie
 let searchTerm = document.getElementById("searchItem")
 
@@ -34,7 +33,7 @@ searchTerm.addEventListener('keyup', searchRecipe);
 function searchRecipe() {
   const searchBar = searchTerm.value.toLowerCase();
 
-  const filteredProducts = completedata.results.filter((product) => {
+  const filteredProducts = completedata.filter((product) => {
     const productName = product.title.toLowerCase();
     return productName.includes(searchBar) 
   });
@@ -47,44 +46,21 @@ function searchRecipe() {
   `).join('');
   productContainer.innerHTML = productCardsHtml;
 }
+ function display(y) {
 
-// Function to show recipe details
-// function showRecipeDetails(recipeId) {
-//   const detailEndpoint = `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=5098cda1bbe94833b4dcfa9e3e1287b5`;
-//   fetch(detailEndpoint)
-//     .then(response => response.json())
-//     .then(data => {
-//       // Set detail elements with recipe data
-//       document.getElementById('detail-title').textContent = data.title;
-//       document.getElementById('detail-image').src = data.image;
-//       document.getElementById('detail-instructions').textContent = data.instructions;
+document.getElementsByClassName("popup")[0].classList.add("active");
+Array.from(document.getElementsByClassName("card")).forEach((el) =>{
+  el.classList.add("hide")
+ })
+document.getElementById("myRecipe").innerHTML= completedata[y].instructions;
 
-//       // Hide recipe cards and show recipe details
-//       document.getElementById('cards').style.display = 'none';
-//       document.getElementById('details').style.display = 'block';
-//     })
-//     .catch(error => {
-//       console.error('Error fetching recipe details:', error);
-//     });
-// }
+document.getElementById("dismiss-popup-btn").addEventListener("click", function(){
+  document.getElementsByClassName("popup")[0].classList.remove("active");
+  Array.from(document.getElementsByClassName("card")).forEach((el) =>{
+    el.classList.remove("hide")
+  })
 
-// // Event listener for search input
-// const searchInput = document.getElementById("search-input");
-// searchInput.addEventListener("input", () => {
-//   const searchQuery = searchInput.value.toLowerCase();
+ });
 
-//   // Filter recipe data based on search query
-//   const filteredRecipes = completedata.results.filter(recipe => recipe.title.toLowerCase().includes(searchQuery));
-
-//   // Create HTML for filtered recipe data
-//   let filteredData = "";
-//   filteredRecipes.map(value => {
-//     filteredData += `<div class="card" onclick="showRecipeDetails(${value.id})">
-//       <h1 class="title">${value.title}</h1>
-//       <img src="${value.image}" alt="img">
-//     </div>`;
-//   });
-
-//   // Display filtered recipe data on webpage
-//   document.getElementById("cards").innerHTML = filteredData;
-// });
+ }
+ 
