@@ -43,15 +43,15 @@ body {
   }
   
   .card {
-    background-color: #fff;
+    background-color: lightgray;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    width: 300px;
+    width: 22%;
     margin: 20px;
     padding: 10px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    height: 400px;
+    height: 45vh;
   border: 1px solid #ccc;
   border-radius: 10px;
   overflow: hidden;
@@ -63,28 +63,33 @@ body {
   }
   
   .title {
-    font-size: 24px;
-    color: #333;
+    font-size: 20px;
+    color: darkblue;
     margin: 10px 0;
+    text-align: center;
   }
   
   
   .ingredients {
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 2px;
   }
   .ingredient_title{
     color: brown;
-    font-weight: 700;
+    font-weight: bold;
+    text-align: center;
+    font-size: 15px;
   }
   
 .ingredients li {
-    width: 30%; /* Adjust width to fit 3 items per row */
-    margin-right: 5%; /* Add some spacing between items */
+    width: 30%; 
+    margin-right: 5%; 
     margin-bottom: 10px;
+    list-style: none;
   }
   .ingredients li:nth-child(3n) {
-    margin-right: 0; /* Remove margin on the last item in the row */
+    margin-right: 0; 
   }
   .card img {
     width: 100%;
@@ -107,6 +112,14 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: all 0.2s ease-in-out;
+  }
+  
+  
+  #quantity, #recipeTitle{
+    color: palevioletred;
+    font-size: 24px;
+   
+   
   }
   
   .popup.active {
