@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+   
+</head>
+<style>
+    #cards{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.card{
+    width: 30%;
+    box-shadow: 0 0 4px 3px gray;
+    text-align: center;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.recipie{
+    font-weight: bold;
+    text-transform: capitalize;
+    margin: 1rem;
+    font-size: 1.2rem;
+}
+</style>
+<body>
+    <header>
+        <h1 class="heading">Recipe App</h1>
+        
+        </form>
+      </header>
+  
+
+    <div id="cards">
+        <!-- <div class="card">
+        
+
+            <p class="recipie">Recipie</p>
+
+        </div> -->
+        
+    
+      
+    </div>
+
+    
+    <script > 
+    let completedata = null;
+const endpoint = 'https://api.spoonacular.com/recipes/random?apiKey=5098cda1bbe94833b4dcfa9e3e1287b5&number=10';
+
+// Get recipe data from Spoonacular API
+fetch(endpoint)
+  .then(response => response.json())
+  .then(data => {
+    completedata = data;
+    console.log(completedata);
+
+    // Generate recipe cards
+    let data1 = "";
+    completedata.recipes.map(value => {
+      data1 += `<div class="card" onclick="showRecipeDetails(${value.id})">
+         <p class="recipie">${value.instructions}</p>
+      </div>`;
+    });
+    document.getElementById("cards").innerHTML = data1;
+  });
+    </script>
+</body>
+</html>

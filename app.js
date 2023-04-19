@@ -21,7 +21,12 @@ let myData=localStorage.getItem("data_recipe")
       <div class="card" onclick="display(${index})">
         <h1 class="title">${value.title}</h1>
         <img src="${value.image}" alt="img">
-        <p class="ingredients">${value.extendedIngredients}</p>
+        <h4 class="ingredient_title"> <u>Ingredients: </u></h4>
+        <p class="ingredients">${value.extendedIngredients.map (X=> X.name
+        )}</p>
+     
+        
+       
       </div>`;
     });
     document.getElementById("cards").innerHTML = data1;
@@ -34,17 +39,20 @@ function searchRecipe() {
   const searchBar = searchTerm.value.toLowerCase();
 
   const filteredProducts = completedata.filter((product) => {
-    const productName = product.title.toLowerCase();
-    return productName.includes(searchBar) 
+    const recipeName = product.title.toLowerCase();
+    return recipeName.includes(searchBar) 
   });
-  const productContainer = document.querySelector('#cards');
-  const productCardsHtml = filteredProducts.map(value => `
-  <div class="card" onclick="showRecipeDetails(${value.id})">
+  const recipeContainer = document.querySelector('#cards');
+  const foodcardshtml = filteredProducts.map((value, index) => `
+  <div class="card" onclick="display(${index})">
   <h1 class="title">${value.title}</h1>
   <img src="${value.image}" alt="img">
-</div>
+  <ul class="ingredients">${value.extendedIngredients.map (X=> `<li>${X.name}</li>`
+  )}</ul>
   `).join('');
-  productContainer.innerHTML = productCardsHtml;
+  recipeContainer.innerHTML = foodcardshtml;
+//   If search box==="". // Is main search box ki value honi Chahiye
+// Document.getElementById("product-list")= myRecipeData. // Is main map kiye hue products
 }
  function display(y) {
 
@@ -56,8 +64,8 @@ document.getElementById("myRecipe").innerHTML= completedata[y].instructions;
 
 document.getElementById("dismiss-popup-btn").addEventListener("click", function(){
   document.getElementsByClassName("popup")[0].classList.remove("active");
-  Array.from(document.getElementsByClassName("card")).forEach((el) =>{
-    el.classList.remove("hide")
+  Array.from(document.getElementsByClassName("card")).forEach((element) =>{
+    element.classList.remove("hide")
   })
 
  });
