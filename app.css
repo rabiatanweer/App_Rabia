@@ -73,7 +73,10 @@ body {
     display: flex;
     flex-wrap: wrap;
   }
-  
+  .ingredient_title{
+    color: brown;
+    font-weight: 700;
+  }
   
 .ingredients li {
     width: 30%; /* Adjust width to fit 3 items per row */
